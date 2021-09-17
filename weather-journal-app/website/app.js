@@ -2,7 +2,7 @@
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = (d.getMonth()+1)+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 let generateBtn = document.getElementById('generate');
 const zipCode=document.getElementById('zip').value;
@@ -72,11 +72,15 @@ generateBtn.addEventListener('click', Action);
 function Action(){
     const zipCode=document.getElementById('zip').value;
     const feeling=document.getElementById('feelings').value;
-
+     if(zipCode === ' '){
+          alert("Please Enter valid zip code");
+     }
+     else{
         getData(apiURL, zipCode, apikey).then(function(data){
             console.log(data);
             postData('/addData',{temp:data.main.temp, date:newDate, feeling:feeling});
             updateScreen();
+        }
         })
     
 }
